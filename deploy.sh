@@ -9,7 +9,7 @@ IFS=$'\n\t'
 
 # 方案一
 create_dir_if_not_exists(){
-	[  -d "$1" ] || mkdir -p "$1"
+    [  -d "$1" ] || mkdir -p "$1"
 }
 
 handle_one_file(){
@@ -32,12 +32,29 @@ install_nvim ()
     popd
 }
 
+install_ccls ()
+{
+    pushd $HOME;
+    set -x
+    sudo apt install zlib1g-dev libncurses-dev
+    sudo apt install clang libclang-dev
+    cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_PREFIX_PATH=/usr/lib/llvm-7 \
+        -DLLVM_INCLUDE_DIR=/usr/lib/llvm-7/include \
+        -DLLVM_BUILD_INCLUDE_DIR=/usr/include/llvm-7/
+    cmake --build Release
+    cd Release && sudo make install
+    set +x;
+    popd
+}
+
 install_nvim_ide()
 {
     [[ -x /usr/bin/nvim ]] || install_nvim
     sudo apt install -y gcc wget iputils-ping python3-pip git bear tig shellcheck ripgrep 
     sudo apt install -y fd-find unzip cmake
     pip3 install pynvim
+    [[ -x /usr/local/ccls ]] || install_ccls
     #sudo snap install prettier --beta # code formatter for json markdown and so on
     #sudo snap install black # python code formatter
     #sudo snap install ccls --classic

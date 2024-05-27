@@ -78,3 +78,7 @@ let g:gitblame_ignored_filetypes = ['lua', 'markdown', 'sh']
 nn xx x
 
 set fileencodings=ucs-bom,utf-8,gbk,latin1
+
+set shiftwidth=4
+set tabstop=4
+set expandtab
