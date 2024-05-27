@@ -36,14 +36,24 @@ install_ccls ()
 {
     pushd $HOME;
     set -x
+    # install dependices
     sudo apt install zlib1g-dev libncurses-dev
     sudo apt install clang libclang-dev
+
+    # download code
+    git clone --depth=1 --recursive https://github.com/MaskRay/ccls
+    cd ccls
+
+    # build
     cmake -H. -BRelease -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_PREFIX_PATH=/usr/lib/llvm-7 \
         -DLLVM_INCLUDE_DIR=/usr/lib/llvm-7/include \
         -DLLVM_BUILD_INCLUDE_DIR=/usr/include/llvm-7/
     cmake --build Release
+
+    # install
     cd Release && sudo make install
+
     set +x;
     popd
 }
