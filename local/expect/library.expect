@@ -1,0 +1,90 @@
+set prompt "\[$|#]"
+
+proc clear_known_hosts {host} {
+    exec sed -i "/$host/{d}" $::env(HOME)/.ssh/known_hosts
+}
+
+proc ssh_expect {password} {
+    upvar spawn_id spawn_id
+        expect {
+            timeout {
+                puts "Connection timed out"
+                    exit 1
+            }
+            "yes/no" {
+                send "yes\r"
+                    exp_continue
+            }
+            "assword:" {
+                send "$password\r"
+                    exp_continue
+            }
+            $::prompt {
+            }
+        }
+}
+
+proc scp_expect {password} {
+    upvar spawn_id spawn_id
+        expect {
+            timeout {
+                puts "Connection timed out"
+                    exit 1
+            }
+            "yes/no" {
+                send "yes\r"
+                    exp_continue
+            }
+            "assword:" {
+                send "$password\r"
+                    exp_continue
+            }
+            "ETA" {exp_continue}
+            "100%" {expect eof}
+        }
+}
+
+proc scp_get_dir {host remote_dir local_dir user password} {
+    clear_known_hosts $host
+        spawn scp -r $user@$host:$remote_dir $local_dir
+        scp_expect $password
+}
+proc scp_get {host remote_dir local_dir user password} {
+    clear_known_hosts $host
+        spawn scp $user@$host:$remote_dir $local_dir
+        scp_expect $password
+}
+
+proc scp_put_dir {host remote_dir local_dir user password} {
+    clear_known_hosts $host
+        spawn scp -r $local_dir $user@$host:$remote_dir
+        scp_expect $password
+}
+
+proc scp_put {host remote_dir local_dir user password} {
+    clear_known_hosts $host
+        spawn scp $local_dir $user@$host:$remote_dir
+        scp_expect $password
+}
+
+proc ssh_login {host user password {port 22}} {
+    upvar spawn_id spawn_id
+        clear_known_hosts $host
+        spawn ssh -o ServerAliveCountMax=6 -o ServerAliveInterval=10 -l $user -p $port $host
+        ssh_expect $password
+}
+
+proc ssh_login_interact {host user password {port 22}} {
+    ssh_login $host $user $password $port
+        interact
+}
+
+proc gdb_run_program {program} {
+    upvar spawn_id spawn_id
+    set timeout 30
+        send "gdb $program\r"
+        expect "(gdb)" {send "r\r"}
+    expect "Starting program" {interact}
+}
+
+# vim:ft=expect:

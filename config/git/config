@@ -1,0 +1,49 @@
+[user]
+    email = wsxq222222@gmail.com
+    name = wsxq2
+[push]
+    # push 的默认设置（通常为 simple）
+    default = simple
+[core]
+    # 让 git status 引用路径不再是八进制（反过来说就是允许显示中文了）
+    quotepath = false
+
+    # 使用 vim 作为 git 默认编辑器
+    editor = $USED_VIM
+
+    # git 用户层面全局排除文件
+    excludesfile = ~/.config/git/gitignore
+[diff]
+    # diff 时使用的 diff 工具
+    tool = vim-difftool
+[difftool]
+    # Be able to abort all diffs with `:cq` or `:cquit`
+    trustExitCode = true
+
+    # 关闭 diff 工具打开文件时的提示（为了方便使用 vimdiff）
+    prompt = false
+# 前面引用的 vim-difftool 的具体值
+[difftool "vim-difftool"]
+    cmd = $USED_VIM -R -d $LOCAL $REMOTE
+[alias]
+    d = difftool
+    m = mergetool
+[color]
+    # 为 git 设置颜色高亮
+    ui = true
+
+[mergetool "vim-mergetool"]
+    # define command which will be used when "vim" is set as a merge tool
+    cmd = $USED_VIM -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[merge]
+    # set "vim-mergetool" as tool for merging
+    tool = vim-mergetool
+[mergetool]
+    # Be able to abort all diffs with `:cq` or `:cquit`
+    trustExitCode = true
+    # automatically launch merge tool without displaying a prompt
+    prompt = false
+
+#[http]
+    #sslverify = false # used for ssl error
+    #proxysslverify = false # used for proxy ssl error
