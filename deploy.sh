@@ -38,9 +38,9 @@ install_nvim_ide()
     sudo apt install -y gcc wget iputils-ping python3-pip git bear tig shellcheck ripgrep 
     sudo apt install -y fd-find unzip cmake
     pip3 install pynvim
-    sudo snap install prettier --beta # code formatter for json markdown and so on
-    sudo snap install black # python code formatter
-    sudo snap install ccls --classic
+    #sudo snap install prettier --beta # code formatter for json markdown and so on
+    #sudo snap install black # python code formatter
+    #sudo snap install ccls --classic
     #sudo snap install bash-language-server --classic
     #sudo snap install pyright --classic
     #sudo apt install -y cargo npm
