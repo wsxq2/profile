@@ -41,6 +41,7 @@ install_nvim ()
 {
     pushd $HOME;
     set -x;
+    sudo apt install curl -y;
     curl -LOk https://github.com/neovim/neovim/releases/latest/download/nvim.appimage;
     chmod u+x nvim.appimage;
     ./nvim.appimage --appimage-extract;
