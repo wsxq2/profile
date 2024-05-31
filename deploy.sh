@@ -12,6 +12,23 @@ create_dir_if_not_exists(){
     [  -d "$1" ] || mkdir -p "$1"
 }
 
+sp ()
+{
+    local host port;
+    host=$1;
+    port=$2;
+    export http_proxy=http://$host:$port/;
+    export https_proxy=http://$host:$port/;
+    export HTTPS_PROXY=http://$host:$port/;
+    export no_proxy=localhost,127.0.0.1,192.168.0.0/24,172.0.0.0/8;
+    export NO_PROXY=localhost,127.0.0.1,192.168.0.0/24,172.0.0.0/8
+}
+
+spho ()
+{
+    sp 192.168.56.200 7890
+}
+
 handle_one_file(){
     f="$1"
     echo handling $f
@@ -37,8 +54,8 @@ install_ccls ()
     pushd $HOME;
     set -x
     # install dependices
-    sudo apt install zlib1g-dev libncurses-dev
-    sudo apt install clang libclang-dev
+    sudo apt install -y zlib1g-dev libncurses-dev
+    sudo apt install -y clang libclang-dev
 
     # download code
     git clone --depth=1 --recursive https://github.com/MaskRay/ccls
@@ -60,6 +77,7 @@ install_ccls ()
 
 install_nvim_ide()
 {
+    spho
     [[ -x /usr/bin/nvim ]] || install_nvim
     sudo apt install -y gcc wget iputils-ping python3-pip git bear tig shellcheck ripgrep 
     sudo apt install -y fd-find unzip cmake
