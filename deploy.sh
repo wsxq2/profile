@@ -111,6 +111,8 @@ for f in ${FILES[@]}; do
     handle_one_file "$f"
 done
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 install_nvim_ide
 
 # 方案二
