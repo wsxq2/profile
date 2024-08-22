@@ -98,17 +98,6 @@ install_nvim_ide()
     #cd ~/.local/share/nvim/lazy/markdown-preview.nvim/app && npm install
 }
 
-PROXY_HOST="${1:-192.168.16.1}"
-
-FILES=( $(find . ! -path '*/.git/*' ! -name README.md ! -name deploy.sh ! -name '*.swp' ! -name .gitignore -type f) )
-
-for f in ${FILES[@]}; do
-    [[ ${f:0:2} == ./ ]] && f="${f:2}"
-    handle_one_file "$f"
-done
-
-sed -i "s/192.168.56.200/$PROXY_HOST/g" ~/.bashrc
-
 declare MACHINE=""
 unameOut="$(uname -s)"
 case "${unameOut}" in
@@ -120,9 +109,20 @@ case "${unameOut}" in
     *)          MACHINE=Linux;;
 esac
 
+[[ $MACHINE == MinGw ]] && PROXY_HOST_DEFAULT=127.0.0.1 || PROXY_HOST_DEFAULT=192.168.16.1
+PROXY_HOST="${1:-$PROXY_HOST_DEFAULT}"
+
+FILES=( $(find . ! -path '*/.git/*' ! -name README.md ! -name deploy.sh ! -name '*.swp' ! -name .gitignore -type f) )
+
+for f in ${FILES[@]}; do
+    [[ ${f:0:2} == ./ ]] && f="${f:2}"
+    handle_one_file "$f"
+done
+
+sed -i "s/192.168.56.200/$PROXY_HOST/g" ~/.bashrc
+
 if [[ $MACHINE == Linux ]]; then
     rm -rf ~/.tmux/plugins/tpm && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     install_nvim_ide
 fi
-
 
