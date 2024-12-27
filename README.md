@@ -52,7 +52,17 @@
 14 directories, 56 files
 ```
 
-## 函数
+## 使用方法
+
+### 部署方法
+```
+git clone git@github.com:wsxq2/profile.git ~/.MyProfile
+cd ~/.MyProfile
+./deploy.sh 192.168.125.1
+```
+
+### 功能说明
+#### 函数
 * `green`: 绿色输出文本
 * `red`: 红色输出文本
 * `yellow`: 黄色输出文本
@@ -82,9 +92,9 @@
 * `vfp`: vim Find Path
 * `wait_host_service`: 等待某个主机的某个服务可用。如 10.12.1.77 的 22 号端口。通常用于等待设备重启 
 
-## 别名
+#### 别名
 
-#### git
+##### git
 ```bash
 alias g='grep -I --exclude-dir=.git'
 alias ga='git add'
@@ -107,7 +117,7 @@ alias gv='git rev-parse --short HEAD'
 alias vig='vim .gitignore'
 ```
 
-#### svn
+##### svn
 ```bash
 alias sa='svn add'
 alias sd='svn diff'
@@ -123,14 +133,14 @@ alias ssr='ss! | xargs svn rm'
 alias su_='svn update'
 ```
 
-#### 安全
+##### 安全
 ```bash
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
 ```
 
-#### 常用
+##### 常用
 ```bash
 alias d='dirs -l -v'
 alias p='pushd'
@@ -157,7 +167,7 @@ alias vv='vim ~/.vimrc'
 alias du.='for f in * ; do du -sh $f; done | sort -h'
 ```
 
-## 一些使用样例
+#### 一些使用样例
 ```bash
 # 目录切换
 p $mp
