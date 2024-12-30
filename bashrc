@@ -1014,8 +1014,12 @@ export DISPLAY=192.168.56.200:0.0
 
 # for ROS
 [[ -f /opt/ros/humble/setup.bash ]] && source /opt/ros/humble/setup.bash
+[[ -f /opt/ros/noetic/setup.bash ]] && source /opt/ros/noetic/setup.bash
 export ROS_DOMAIN_ID=1
 export ROS_LOCALHOST_ONLY=1
 [[ -f /usr/share/colcon_cd/function/colcon_cd.sh ]] && source /usr/share/colcon_cd/function/colcon_cd.sh
 export _colcon_cd_root=/opt/ros/humble/
 [[ -f /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash ]] && source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+# for rosdep using tsinghua to speed up: https://mirrors.tuna.tsinghua.edu.cn/help/rosdistro/
+export ROSDISTRO_INDEX_URL=https://mirrors.tuna.tsinghua.edu.cn/rosdistro/index-v4.yaml
