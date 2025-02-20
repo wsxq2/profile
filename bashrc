@@ -1021,3 +1021,6 @@ export ROS_LOCALHOST_ONLY=1
 export _colcon_cd_root=/opt/ros/noetic/
 [[ -f /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash ]] && source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 export GAZEBO_MODEL_PATH=/home/ubuntu/auto_forklift_pallet_detection/src/forklift_simulator/models:$GAZEBO_MODEL_PATH
+
+# for rosdep using tsinghua to speed up: https://mirrors.tuna.tsinghua.edu.cn/help/rosdistro/
+export ROSDISTRO_INDEX_URL=https://mirrors.tuna.tsinghua.edu.cn/rosdistro/index-v4.yaml
