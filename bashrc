@@ -1014,8 +1014,10 @@ export DISPLAY=192.168.56.200:0.0
 
 # for ROS
 [[ -f /opt/ros/humble/setup.bash ]] && source /opt/ros/humble/setup.bash
+[[ -f /opt/ros/noetic/setup.bash ]] && source /opt/ros/noetic/setup.bash
 export ROS_DOMAIN_ID=1
 export ROS_LOCALHOST_ONLY=1
 [[ -f /usr/share/colcon_cd/function/colcon_cd.sh ]] && source /usr/share/colcon_cd/function/colcon_cd.sh
-export _colcon_cd_root=/opt/ros/humble/
+export _colcon_cd_root=/opt/ros/noetic/
 [[ -f /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash ]] && source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+export GAZEBO_MODEL_PATH=/home/ubuntu/auto_forklift_pallet_detection/src/forklift_simulator/models:$GAZEBO_MODEL_PATH
