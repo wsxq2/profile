@@ -118,7 +118,7 @@ for f in ${FILES[@]}; do
   handle_one_file "$f"
 done
 
-sed -E "s/^export DISPLAY=/&$PROXY_HOST:0.0/; s/sp [0-9.]+ 7890/sp $PROXY_HOST 7890/;" ~/.bashrc > tmp && cat tmp > ~/.bashrc && rm -rf tmp
+sed -E "s/^(export DISPLAY)=[0-9.]+:0.0.*$/\1=$PROXY_HOST:0.0/; s/sp [0-9.]+ 7890/sp $PROXY_HOST 7890/;" ~/.bashrc > tmp && cat tmp > ~/.bashrc && rm -rf tmp
 
 spho
 if [[ $MACHINE == Linux ]]; then

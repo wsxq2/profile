@@ -529,12 +529,12 @@ function sp(){
 
 # set proxy lo
 function splo(){
-    sp 127.0.0.1 7890
+    sp 192.168.3.107 7890
 }
 
 # set proxy hostonly
 function spho(){
-    sp 192.168.56.200 7890
+    sp 192.168.3.107 7890
 }
 spho
 
@@ -1010,7 +1010,7 @@ done
 unset -f pathmunge
 
 # for X service
-export DISPLAY=192.168.56.200:0.0
+export DISPLAY=192.168.3.107:0.0
 
 # for ROS
 [[ -f /opt/ros/humble/setup.bash ]] && source /opt/ros/humble/setup.bash
