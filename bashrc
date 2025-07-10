@@ -845,7 +845,7 @@ install_suricata(){
 install_nvim(){
     pushd $HOME
     set -x
-    curl -LOk https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    curl -Lk -o nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
     chmod u+x nvim.appimage
     ./nvim.appimage --appimage-extract
     sudo mv squashfs-root / && sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
