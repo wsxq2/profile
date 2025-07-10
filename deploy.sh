@@ -92,6 +92,11 @@ install_nvim_ide() {
   #cd ~/.local/share/nvim/lazy/markdown-preview.nvim/app && npm install
 }
 
+if [[ $# == 0 ]]; then
+    echo "Usage: $0 PROXY_HOST"
+    exit -1
+fi
+
 declare MACHINE=""
 unameOut="$(uname -s)"
 case "${unameOut}" in
@@ -115,6 +120,7 @@ done
 
 sed -i "s/192.168.56.200/$PROXY_HOST/g" ~/.bashrc
 
+spho
 if [[ $MACHINE == Linux ]]; then
   rm -rf ~/.tmux/plugins/tpm && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
