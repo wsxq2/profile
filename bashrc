@@ -529,12 +529,12 @@ function sp(){
 
 # set proxy lo
 function splo(){
-    sp 192.168.3.107 7890
+    sp 172.17.224.1 7890
 }
 
 # set proxy hostonly
 function spho(){
-    sp 192.168.3.107 7890
+    sp 172.17.224.1 7890
 }
 spho
 
@@ -1010,7 +1010,7 @@ done
 unset -f pathmunge
 
 # for X service
-export DISPLAY=192.168.3.107:0.0
+export DISPLAY=172.17.224.1:0.0
 
 # for ROS
 [[ -f /opt/ros/humble/setup.bash ]] && source /opt/ros/humble/setup.bash
@@ -1024,3 +1024,11 @@ export GAZEBO_MODEL_PATH=/home/ubuntu/auto_forklift_pallet_detection/src/forklif
 
 # for rosdep using tsinghua to speed up: https://mirrors.tuna.tsinghua.edu.cn/help/rosdistro/
 export ROSDISTRO_INDEX_URL=https://mirrors.tuna.tsinghua.edu.cn/rosdistro/index-v4.yaml
+
+alias cb="colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+
+# 启动 ibus-daemon（避免重复启动），后面注释掉的内容必须手动执行
+pgrep -x ibus-daemon > /dev/null || eval "$(dbus-launch --sh-syntax)" && ibus-daemon -drxR # && ibus engine rime
