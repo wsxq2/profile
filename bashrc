@@ -1031,4 +1031,8 @@ export QT_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 
 # 启动 ibus-daemon（避免重复启动），后面注释掉的内容必须手动执行
-pgrep -x ibus-daemon > /dev/null || eval "$(dbus-launch --sh-syntax)" && ibus-daemon -drxR # && ibus engine rime
+function sid() {
+    if ! pgrep -x ibus-daemon > /dev/null; then
+        (eval "$(dbus-launch --sh-syntax)" && ibus-daemon -drxR && sleep 10 && ibus engine rime) &
+    fi
+}
