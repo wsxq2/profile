@@ -529,12 +529,12 @@ function sp(){
 
 # set proxy lo
 function splo(){
-    sp 172.17.224.1 7890
+    sp 192.168.3.107 7890
 }
 
 # set proxy hostonly
 function spho(){
-    sp 172.17.224.1 7890
+    sp 192.168.3.107 7890
 }
 spho
 
@@ -581,11 +581,12 @@ export NVM_DIR="$HOME/.nvm"
 
 ## for pyenv
 ##############################################################################
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$PYENV_ROOT/bin:$PATH"
-#if command -v pyenv 1>/dev/null 2>&1; then
-#  eval "$(pyenv init -)"
-#fi
+if which pyenv &> /dev/null; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init - bash)"
+    eval "$(pyenv virtualenv-init -)"
+fi
 ##############################################################################
 
 
@@ -1010,27 +1011,34 @@ done
 unset -f pathmunge
 
 # for X service
-export DISPLAY=172.17.224.1:0.0
+#export DISPLAY=192.168.3.107:0.0
 
 # for ROS
-[[ -f /opt/ros/humble/setup.bash ]] && source /opt/ros/humble/setup.bash
-[[ -f /opt/ros/noetic/setup.bash ]] && source /opt/ros/noetic/setup.bash
-export ROS_DOMAIN_ID=1
-export ROS_LOCALHOST_ONLY=1
-[[ -f /usr/share/colcon_cd/function/colcon_cd.sh ]] && source /usr/share/colcon_cd/function/colcon_cd.sh
-export _colcon_cd_root=/opt/ros/noetic/
-[[ -f /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash ]] && source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
-export GAZEBO_MODEL_PATH=/home/ubuntu/auto_forklift_pallet_detection/src/forklift_simulator/models:$GAZEBO_MODEL_PATH
+ros_version=""
+if [[ -f /opt/ros/humble/setup.bash ]]; then
+    ros_version=humble
+elif [[ -f /opt/ros/noetic/setup.bash ]]; then
+    ros_version=noetic
+fi
+if [[ -n ${ros_version} ]]; then
+    source /opt/ros/${ros_version}/setup.bash
+    export ROS_DOMAIN_ID=1
+    export ROS_LOCALHOST_ONLY=1
+    [[ -f /usr/share/colcon_cd/function/colcon_cd.sh ]] && source /usr/share/colcon_cd/function/colcon_cd.sh
+    export _colcon_cd_root=/opt/ros/${ros_version}/
+    [[ -f /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash ]] && source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 
-# for rosdep using tsinghua to speed up: https://mirrors.tuna.tsinghua.edu.cn/help/rosdistro/
-export ROSDISTRO_INDEX_URL=https://mirrors.tuna.tsinghua.edu.cn/rosdistro/index-v4.yaml
+    # for rosdep using tsinghua to speed up: https://mirrors.tuna.tsinghua.edu.cn/help/rosdistro/
+    export ROSDISTRO_INDEX_URL=https://mirrors.tuna.tsinghua.edu.cn/rosdistro/index-v4.yaml
 
-alias cb="colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+    alias cb="colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+fi
+
+# for Qt Chinese input problem
 export GTK_IM_MODULE=ibus
 export QT_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
-
-# 启动 ibus-daemon（避免重复启动），后面注释掉的内容必须手动执行
+# start ibus-daemon
 function sid() {
     if ! pgrep -x ibus-daemon > /dev/null; then
         (eval "$(dbus-launch --sh-syntax)" && ibus-daemon -drxR && sleep 10 && ibus engine rime) &
