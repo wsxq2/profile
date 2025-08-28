@@ -1023,15 +1023,17 @@ fi
 if [[ -n ${ros_version} ]]; then
     source /opt/ros/${ros_version}/setup.bash
     export ROS_DOMAIN_ID=1
-    export ROS_LOCALHOST_ONLY=1
     [[ -f /usr/share/colcon_cd/function/colcon_cd.sh ]] && source /usr/share/colcon_cd/function/colcon_cd.sh
     export _colcon_cd_root=/opt/ros/${ros_version}/
     [[ -f /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash ]] && source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
 
     # for rosdep using tsinghua to speed up: https://mirrors.tuna.tsinghua.edu.cn/help/rosdistro/
     export ROSDISTRO_INDEX_URL=https://mirrors.tuna.tsinghua.edu.cn/rosdistro/index-v4.yaml
-
-    alias cb="colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+    alias cb="colcon build --symlink-install"
+    function cbc() {
+        colcon build --symlink-install "$@" --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+    }
+    alias ccw="colcon clean workspace"
 fi
 
 # for Qt Chinese input problem

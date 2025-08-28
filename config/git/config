@@ -47,3 +47,5 @@
 #[http]
     #sslverify = false # used for ssl error
     #proxysslverify = false # used for proxy ssl error
+[init]
+	defaultBranch = main
