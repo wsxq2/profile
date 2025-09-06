@@ -108,17 +108,23 @@ MSYS_NT*) MACHINE=Git ;;
 *) MACHINE=Linux ;;
 esac
 
-[[ $MACHINE == MinGw ]] && PROXY_HOST_DEFAULT=127.0.0.1 || PROXY_HOST_DEFAULT=192.168.16.1
+[[ $MACHINE == MinGw ]] && PROXY_HOST_DEFAULT=127.0.0.1 || PROXY_HOST_DEFAULT=192.168.56.1
 PROXY_HOST="${1:-$PROXY_HOST_DEFAULT}"
 
-FILES=($(find . ! -path '*/.git/*' ! -name README.md ! -name deploy.sh ! -name '*.swp' ! -name .gitignore ! -name .gitmodules -type f))
+if [[ ! -f .env ]]; then
+    cat > .env << EOF
+V_PROXY_HOST=$PROXY_HOST
+V_PROXY_PORT=7890
+#V_DP=${PROXY_HOST}:0.0
+EOF
+fi
+
+FILES=($(find . ! -path '*/.git/*' ! -name README.md ! -name deploy.sh ! -name '*.swp' ! -name .gitignore ! -name .gitmodules ! -name .env -type f))
 
 for f in ${FILES[@]}; do
   [[ ${f:0:2} == ./ ]] && f="${f:2}"
   handle_one_file "$f"
 done
-
-sed -E "s/^(export DISPLAY)=[0-9.]+:0.0.*$/\1=$PROXY_HOST:0.0/; s/sp [0-9.]+ 7890/sp $PROXY_HOST 7890/;" ~/.bashrc > tmp && cat tmp > ~/.bashrc && rm -rf tmp
 
 spho
 if [[ $MACHINE == Linux ]]; then
