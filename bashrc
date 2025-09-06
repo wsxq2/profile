@@ -179,7 +179,8 @@ fi
 alias ls="ls --color=auto"
 alias l=ls
 alias ll="ls -lh"
-#alias la='ls -a'
+alias la='ls -a'
+alias l.='ls -d .*'
 alias md=mkdir
 alias sdn="sudo shutdown now"
 alias tree='tree --dirsfirst -aF -I .git'
