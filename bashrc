@@ -194,7 +194,7 @@ alias lb='lsblk -ao +FSTYPE,LABEL,PARTUUID,MODEL'
 alias grep="grep --color=auto"
 alias g='grep -I --exclude-dir=.git'
 alias gr='g -r -n'
-alias du.='for f in * ; do du -sh $f; done | sort -h'
+alias du.='for f in $(ls -a) ; do if [[ ! ( $f = . || $f = .. ) ]]; then du -sh $f; fi; done | sort -h'
 alias rp='realpath'
 alias le='less'
 alias wh='which'
