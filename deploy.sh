@@ -111,7 +111,7 @@ esac
 [[ $MACHINE == MinGw ]] && PROXY_HOST_DEFAULT=127.0.0.1 || PROXY_HOST_DEFAULT=192.168.16.1
 PROXY_HOST="${1:-$PROXY_HOST_DEFAULT}"
 
-FILES=($(find . ! -path '*/.git/*' ! -name README.md ! -name deploy.sh ! -name '*.swp' ! -name .gitignore -type f))
+FILES=($(find . ! -path '*/.git/*' ! -name README.md ! -name deploy.sh ! -name '*.swp' ! -name .gitignore ! -name .gitmodules -type f))
 
 for f in ${FILES[@]}; do
   [[ ${f:0:2} == ./ ]] && f="${f:2}"
