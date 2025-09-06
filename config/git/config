@@ -49,3 +49,5 @@
     #proxysslverify = false # used for proxy ssl error
 [pull]
 	rebase = false
+[init]
+	defaultBranch = main
