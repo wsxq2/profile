@@ -1028,6 +1028,8 @@ if [[ -f /opt/ros/humble/setup.bash ]]; then
     ros_version=humble
 elif [[ -f /opt/ros/noetic/setup.bash ]]; then
     ros_version=noetic
+    export DISABLE_ROS1_EOL_WARNINGS=1
+    source $HOME/ros_ws/devel/setup.bash
 fi
 if [[ -n ${ros_version} ]]; then
     source /opt/ros/${ros_version}/setup.bash
