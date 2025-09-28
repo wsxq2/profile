@@ -1031,7 +1031,7 @@ elif [[ -f /opt/ros/noetic/setup.bash ]]; then
 fi
 if [[ -n ${ros_version} ]]; then
     source /opt/ros/${ros_version}/setup.bash
-    export ROS_DOMAIN_ID=1
+    export ROS_DOMAIN_ID=${V_ROS_DOMAIN_ID:-1}
     [[ -f /usr/share/colcon_cd/function/colcon_cd.sh ]] && source /usr/share/colcon_cd/function/colcon_cd.sh
     export _colcon_cd_root=/opt/ros/${ros_version}/
     [[ -f /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash ]] && source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
