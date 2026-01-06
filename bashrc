@@ -1047,6 +1047,9 @@ if [[ -n ${ros_version} ]]; then
     if [[ $ros_version == "noetic" ]]; then
         export DISABLE_ROS1_EOL_WARNINGS=1
         [[ -f $HOME/ros_ws/devel/setup.bash ]] && source $HOME/ros_ws/devel/setup.bash
+    elif [[ $ros_version == "humble" ]]; then
+        export TURTLEBOT3_MODEL=waffle
+        export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
     fi
 fi
 
@@ -1060,3 +1063,7 @@ function sid() {
         (eval "$(dbus-launch --sh-syntax)" && ibus-daemon -drxR && sleep 10 && ibus engine rime) &
     fi
 }
+
+if which wslinfo &> /dev/null; then
+    export MESA_D3D12_DEFAULT_ADAPTER_NAME=5600M
+fi
