@@ -1050,6 +1050,9 @@ if [[ -n ${ros_version} ]]; then
     elif [[ $ros_version == "humble" ]]; then
         export TURTLEBOT3_MODEL=waffle
         export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+        if [[ -n $V_ROS_CUSTOM_SETUP ]]; then
+            source $V_ROS_CUSTOM_SETUP
+        fi
     fi
 fi
 
