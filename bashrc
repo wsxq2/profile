@@ -336,19 +336,19 @@ decode_gdb_str(){
 # 转换为 10 进制数
 todec ()
 {
-    python -c "print int($1)"
+    python3 -c "print(int($1))"
 }
 
 # 转换为 2 进制数
 tobin () 
 { 
-    python -c "print bin($1)"
+    python -c "print(bin($1))"
 }
 
 # 转换为 16 进制数
 tohex () 
 { 
-    python -c "print hex($1)"
+    python -c "print(hex($1))"
 }
 
 # Reduce ~/.Bash_History
@@ -1052,6 +1052,10 @@ if [[ -n ${ros_version} ]]; then
         export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
         if [[ -n $V_ROS_CUSTOM_SETUP ]]; then
             source $V_ROS_CUSTOM_SETUP
+        fi
+        if [[ -n $V_CYCLONEDDS_URI ]]; then
+            export CYCLONEDDS_URI=$V_CYCLONEDDS_URI
+            export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
         fi
     fi
 fi
