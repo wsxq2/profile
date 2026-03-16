@@ -1,11 +1,33 @@
 # MyProfile
 
-
-## 说明
 这是我在 Linux 中使用的各种配置文件，例如`~/.bashrc`, `~/.vimrc`等等
 
 建议 fork 到自己的仓库，再按需修改，并自行维护（毕竟每个人的需求是不一样的）
 
+## 快速使用
+
+```bash
+git clone https://github.com/wsxq2/profile.git ~/.MyProfile
+cd ~/.MyProfile
+./deploy.sh 127.0.0.1 # 注意替换为你的代理主机，默认代理端口是 7890
+```
+
+**请务必修改 git 的用户名和邮箱设置**, 有两个方法，任选其一即可：
+
+1. 通过 git 命令设置：
+
+   ```bash
+   git config --global user.name your_name
+   git config --global user.email your_email
+   ```
+
+1. 修改 git 配置文件。找到 `config/git/config` 文件并打开，将 `name` 和 `email` 修改为对应的值。
+
+如果你还想使用我的 nvim 配置和输入法配置（通常不需要，我的输入法配置是五笔）：
+
+```bash
+git submodule update --init
+```
 
 ## 目录结构
 本目录结构和用户家目录的结构完全相同，但文件名少了个`.`（英文句号），如`bashrc`，这是为了 ls 时能直接看到。而其中一键部署脚本`deploy.sh`的作用是将这些文件创建软链接到家目录中的正确位置（会在前面加`.`）。这样的好处是你对这些配置文件的修改都处于版本跟踪下。详情查看`deploy.sh`脚本内容
@@ -53,13 +75,6 @@
 ```
 
 ## 使用方法
-
-### 部署方法
-```
-git clone git@github.com:wsxq2/profile.git ~/.MyProfile
-cd ~/.MyProfile
-./deploy.sh 192.168.125.1
-```
 
 ### 功能说明
 #### 函数
