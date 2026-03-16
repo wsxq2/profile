@@ -29,6 +29,17 @@ cd ~/.MyProfile
 git submodule update --init
 ```
 
+`bashrc` 中会将 `mp` 变量设置为 `~/.MyProfile`，后续可以直接使用 `cd $mp` 到此目录，此目录中有一个默认的 `.env` 文件，用于添加自定义的、非版本跟踪的变量设置和命令：
+
+```
+V_PROXY_HOST=127.0.0.1
+V_PROXY_PORT=7890
+#V_DP=127.0.0.1:0.0 # DISPALY 变量
+V_ROS_DOMAIN_ID=3
+V_ROS_CUSTOM_SETUP=$HOME/liftbot/install/setup.bash
+V_CYCLONEDDS_URI=$HOME/liftbot/dds/cyclonedds_lo.xml
+```
+
 ## 目录结构
 本目录结构和用户家目录的结构完全相同，但文件名少了个`.`（英文句号），如`bashrc`，这是为了 ls 时能直接看到。而其中一键部署脚本`deploy.sh`的作用是将这些文件创建软链接到家目录中的正确位置（会在前面加`.`）。这样的好处是你对这些配置文件的修改都处于版本跟踪下。详情查看`deploy.sh`脚本内容
 
@@ -76,86 +87,12 @@ git submodule update --init
 
 ## 使用方法
 
-### 功能说明
-#### 函数
-* `green`: 绿色输出文本
-* `red`: 红色输出文本
-* `yellow`: 黄色输出文本
-* `grrules`: 根据关键字抓取 IPS 规则
-* `grsid`: 根据 sid 抓取 IPS 规则
-* `gs`: git status
-* `gsm`: git status Tracked
-* `gsu`: git status Untracked
-* `hg`: xxx --help |grep xxx
-* `hig`: history grep
-* `install_tmux`: 安装 tmux
-* `install_tpm`: 安装 tmux 的 tpm 插件
-* `install_vim8`: 安装 vim8
-* `mi`: MInicom。用于在终端连接串口
-* `pg`: Ps Grep。
-* `random_port`: 获取随机端口
-* `random_string`: 获取随机字符串
-* `sp`: Set Proxy
-* `spho`: Set Proxy HOst
-* `splo`: Set Proxy LO
-* `tp`: Test Proxy
-* `up`: Unset Proxy
-* `t`: use Tmux quickly
-* `urldecode`
-* `urlencode`
-* `vdd`: Vim Dir Diff
-* `vfp`: vim Find Path
-* `wait_host_service`: 等待某个主机的某个服务可用。如 10.12.1.77 的 22 号端口。通常用于等待设备重启 
+### 别名或函数
 
-#### 别名
-
-##### git
-```bash
-alias g='grep -I --exclude-dir=.git'
-alias ga='git add'
-alias ga.='gss | xargs git add'
-alias gb='git branch'
-alias gbh='git rev-parse --abbrev-ref HEAD'
-alias gc='git checkout'
-alias gd='git d'
-alias gdd='git diff'
-alias gl='git log'
-alias gm='git commit'
-alias gma='git commit --amend'
-alias gmm='git commit -m'
-alias gp='git pull'
-alias gph='git pull origin $(git rev-parse --abbrev-ref HEAD)'
-alias gpu='git push'
-alias gss='git status --short'
-alias gt='git tag'
-alias gv='git rev-parse --short HEAD'
-alias vig='vim .gitignore'
-```
-
-##### svn
-```bash
-alias sa='svn add'
-alias sd='svn diff'
-alias si='svn propedit svn:ignore'
-alias sll='svn log -v | less'
-alias sm='svn commit'
-alias sr='svn rm'
-alias ss!='svn status | grep "^\!" | tr "^\!" " " | sed "s/[ ]*//" | sed "s/[ ]/\\\ /g"'
-alias ss?='svn status | grep "^\?" | tr "^\?" " " | sed "s/[ ]*//" | sed "s/[ ]/\\\ /g"'
-alias ss_='svn status'
-alias ssa='ss? | xargs svn add'
-alias ssr='ss! | xargs svn rm'
-alias su_='svn update'
-```
-
-##### 安全
-```bash
-alias cp='cp -i'
-alias mv='mv -i'
-alias rm='rm -i'
-```
+可使用 `type` 命令查看其定义，例如 `type gs`
 
 ##### 常用
+
 ```bash
 alias d='dirs -l -v'
 alias p='pushd'
@@ -182,12 +119,61 @@ alias vv='vim ~/.vimrc'
 alias du.='for f in * ; do du -sh $f; done | sort -h'
 ```
 
-#### 一些使用样例
+#### git 相关
+* `gs`: git status
+
 ```bash
-# 目录切换
-p $mp
-p ~
-d
-po
-po
+alias ga='git add'
+alias gb='git branch'
+alias gc='git checkout'
+alias gd='git d'
+alias gdd='git diff'
+alias gl='git log'
+alias gm='git commit'
+alias gma='git commit --amend'
+alias gp='git pull'
+alias gpu='git push'
 ```
+#### 代理相关
+
+* `sp`: Set Proxy
+* `spho`: Set Proxy HOst
+* `splo`: Set Proxy LO
+* `tp`: Test Proxy
+* `up`: Unset Proxy
+
+#### svn
+
+```bash
+alias sa='svn add'
+alias sd='svn diff'
+alias si='svn propedit svn:ignore'
+alias sll='svn log -v | less'
+alias sm='svn commit'
+alias sr='svn rm'
+alias ss!='svn status | grep "^\!" | tr "^\!" " " | sed "s/[ ]*//" | sed "s/[ ]/\\\ /g"'
+alias ss?='svn status | grep "^\?" | tr "^\?" " " | sed "s/[ ]*//" | sed "s/[ ]/\\\ /g"'
+alias ss_='svn status'
+alias ssa='ss? | xargs svn add'
+alias ssr='ss! | xargs svn rm'
+alias su_='svn update'
+```
+
+##### 安全
+
+```bash
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+```
+
+#### 其他
+
+* `t`: use Tmux quickly
+* `urldecode`
+* `urlencode`
+* `green`: 绿色输出文本
+* `red`: 红色输出文本
+* `yellow`: 黄色输出文本
+* `hg`: xxx --help |grep xxx
+* `hig`: history grep
