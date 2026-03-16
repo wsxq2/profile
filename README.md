@@ -91,7 +91,7 @@ V_CYCLONEDDS_URI=$HOME/liftbot/dds/cyclonedds_lo.xml
 
 可使用 `type` 命令查看其定义，例如 `type gs`
 
-##### 常用
+#### 常用
 
 ```bash
 alias d='dirs -l -v'
@@ -159,7 +159,7 @@ alias ssr='ss! | xargs svn rm'
 alias su_='svn update'
 ```
 
-##### 安全
+#### 安全
 
 ```bash
 alias cp='cp -i'
