@@ -21,7 +21,7 @@ cd ~/.MyProfile
    git config --global user.email your_email
    ```
 
-1. 修改 git 配置文件。找到 `config/git/config` 文件并打开，将 `name` 和 `email` 修改为对应的值。
+1. 修改 git 配置文件。找到 `~/.config/git/config` 文件并打开，将 `name` 和 `email` 修改为对应的值。
 
 如果你还想使用我的 nvim 配置和输入法配置（通常不需要，我的输入法配置是五笔）：
 
