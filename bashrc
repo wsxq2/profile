@@ -533,8 +533,8 @@ function sp(){
     export http_proxy=http://$host:$port/
     export https_proxy=http://$host:$port/
     export HTTPS_PROXY=http://$host:$port/
-    export no_proxy=localhost,127.0.0.1,192.168.0.0/24,172.0.0.0/8
-    export NO_PROXY=localhost,127.0.0.1,192.168.0.0/24,172.0.0.0/8
+    export no_proxy=localhost,127.0.0.1,192.168.0.0/16,172.0.0.0/8
+    export NO_PROXY=localhost,127.0.0.1,192.168.0.0/16,172.0.0.0/8
     # export ftp_proxy=http://127.0.0.1:1080/
     # export all_proxy=socks://127.0.0.1:1080/
 }
@@ -1074,3 +1074,4 @@ function sid() {
 if which wslinfo &> /dev/null; then
     export MESA_D3D12_DEFAULT_ADAPTER_NAME=5600M
 fi
+
