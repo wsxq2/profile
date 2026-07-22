@@ -116,6 +116,7 @@ if [[ ! -f .env ]]; then
 V_PROXY_HOST=$PROXY_HOST
 V_PROXY_PORT=7890
 #V_DP=${PROXY_HOST}:0.0
+V_AUTO_SOURCE_ROS=1
 V_ROS_DOMAIN_ID=1
 #V_ROS_CUSTOM_SETUP=$HOME/ros2_ws/install/setup.bash
 #V_CYCLONEDDS_URI=file:///$HOME/ros2_ws/dds/cyclonedds.xml

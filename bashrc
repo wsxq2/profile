@@ -1029,7 +1029,7 @@ if [[ -f /opt/ros/humble/setup.bash ]]; then
 elif [[ -f /opt/ros/noetic/setup.bash ]]; then
     ros_version=noetic
 fi
-if [[ -n ${ros_version} ]]; then
+if [[ -n ${ros_version} && ${V_AUTO_SOURCE_ROS} == 1  ]]; then
     source /opt/ros/${ros_version}/setup.bash
     export ROS_DOMAIN_ID=${V_ROS_DOMAIN_ID:-1}
     [[ -f /usr/share/colcon_cd/function/colcon_cd.sh ]] && source /usr/share/colcon_cd/function/colcon_cd.sh
